@@ -1,333 +1,600 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Curriculum Vitae of Peyman Paknezhad">
-    <title>Peyman Paknezhad - Curriculum Vitae</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Personal Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Glassmorphism background */
-        body {
-            font-family: 'Inter', sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, rgba(245, 245, 245, 0.8), rgba(255, 255, 255, 0.8));
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            height: 100%;
         }
-        header, section, footer {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-in-out forwards;
-            background: rgba(255, 255, 255, 0.7); /* Glassmorphism */
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            margin: 20px auto;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: none;
-        }
-        .name {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #111827;
-        }
-        .subtext {
-            font-size: 1rem;
-            color: #6b7280;
-        }
-        .social-icons a {
-            color: #6b7280;
-            transition: color 0.3s ease;
-        }
-        .social-icons a:hover {
-            color: #333;
-        }
-        /* Sections */
-        section {
-            padding: 30px;
-            max-width: 1200px;
-        }
-        section h2 {
-            color: #111827;
-        }
-        section p, section div {
-            color: #555;
-        }
-        .hover-card {
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-        .hover-card:hover {
-            transform: scale(1.05);
-        }
-        footer {
-            background: rgba(255, 255, 255, 0.7);
-            color: #6b7280;
+
+        .header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
             text-align: center;
-            font-size: 0.875rem;
-            padding: 20px;
-            max-width: 1200px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
         }
-        /* Add small gap between the last section and the footer */
-        section:last-of-type {
+
+        .container {
+            position: relative;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-wrap: wrap;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            overflow: hidden;
+        }
+
+        /* Profile Picture Styling with Animation */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Glowing Effect on Hover */
+        .profile-pic:hover {
+            animation: glow 1.5s ease-in-out infinite;
+        }
+
+        /* Glowing Animation */
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .button {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #1a1a1a, #333333);
+            border-radius: 50%;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .button:hover {
+            transform: scale(2.5) translate(0, -20px);
+            box-shadow: 0px 10px 25px rgba(255, 255, 255, 0.5);
+            z-index: 100;
+        }
+
+        .button span {
+            pointer-events: none;
+        }
+
+        .button::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .button:hover::after {
+            opacity: 1;
+        }
+
+        /* Sections */
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            overflow-y: auto;
+        }
+
+        .section.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
             margin-bottom: 20px;
         }
 
-        /* Consistent animation for all parts */
-        @keyframes fadeInUp {
+        .section p {
+            text-align: justify;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            font-size: 1.2rem;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            z-index: 1000;
+        }
+
+        /* Loading Screen */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+            transition: opacity 1s ease;
+        }
+
+        #loadingText {
+            font-size: 1.5rem;
+            color: white;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 5s steps(30) 1s 1 normal both, blink 0.75s step-end infinite;
+        }
+
+        /* Typing Effect */
+        @keyframes typing {
             0% {
-                opacity: 0;
-                transform: translateY(20px);
+                width: 0;
             }
             100% {
-                opacity: 1;
-                transform: translateY(0);
+                width: 100%;
             }
         }
 
-        /* Delay for each section */
-        section:nth-of-type(1) {
-            animation-delay: 0.3s;
+        /* Blinking Cursor */
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
         }
-        section:nth-of-type(2) {
-            animation-delay: 0.5s;
-        }
-        section:nth-of-type(3) {
-            animation-delay: 0.7s;
-        }
-        section:nth-of-type(4) {
-            animation-delay: 0.9s;
-        }
-        section:nth-of-type(5) {
-            animation-delay: 1.1s;
-        }
-        section:nth-of-type(6) {
-            animation-delay: 1.3s;
-        }
+
+        /* Footer */
         footer {
-            animation-delay: 1.5s;
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .button {
+                width: 100px;
+                height: 100px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Header Section -->
-    <header>
-        <!-- Social Icons on the Left -->
-        <div class="social-icons">
-            <a href="https://linkedin.com/in/peyman-paknezhad" aria-label="LinkedIn">
-                <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.635 3h-15.27c-.72 0-1.365.575-1.365 1.363v15.273c0 .788.645 1.364 1.365 1.364h15.27c.72 0 1.365-.576 1.365-1.364v-15.273c0-.788-.645-1.363-1.365-1.363zm-10.635 16h-3v-8h3v8zm-1.5-9.17c-.966 0-1.5-.646-1.5-1.455 0-.823.554-1.455 1.538-1.455s1.5.632 1.5 1.455c0 .809-.534 1.455-1.538 1.455zm9.5 9.17h-3v-4.33c0-1.035-.388-1.74-1.36-1.74-.74 0-1.177.524-1.37 1.04-.07.17-.088.405-.088.642v4.388h-3v-8h3v1.195c.26-.41.803-1.007 1.958-1.007 1.43 0 2.448 1.09 2.448 3.397v4.415z"/></svg>
-            </a>
-            <a href="mailto:peyman.paknezhad.aut@gmail.com" aria-label="Email">
-                <svg class="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12.713l11.985-7.013v-.716c0-.693-.514-1.284-1.189-1.284h-21.592c-.675 0-1.189.591-1.189 1.284v.716l11.985 7.013zm0 2.387l-12-7.001v11.901c0 .692.514 1.284 1.189 1.284h21.622c.675 0 1.189-.591 1.189-1.284v-11.901l-12 7.001z"/></svg>
-            </a>
-        </div>
-
-        <!-- Name and Subtext on the Right -->
-        <div>
-            <h1 class="name">Peyman Paknezhad</h1>
-            <p class="subtext">Machine Learning | AI Security | Trustworthy AI</p>
-        </div>
-    </header>
-
-    <!-- Profile Section -->
-    <section class="container mx-auto mt-12 px-6 text-center">
-        <img src="IMG/IMG1.JPG" alt="Profile Picture" class="rounded-full mx-auto border-4 border-white shadow-lg w-44 h-44 object-cover transform hover:rotate-6 hover:scale-105 transition duration-300">
-        <p class="mt-6 text-gray-700 text-xl">Born 29 Jan 2001 | Iran</p>
-    </section>
-
-    <!-- Research Interests Section -->
-    <section class="container mx-auto mt-16 px-6">
-        <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Research Interests</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-gray-700">
-            <div class="hover-card p-6 bg-white rounded-lg shadow-md transition-transform transform">
-                 Machine Learning
-            </div>
-            <div class="hover-card p-6 bg-white rounded-lg shadow-md transition-transform transform">
-                 Adversarial Machine Learning
-            </div>
-            <div class="hover-card p-6 bg-white rounded-lg shadow-md transition-transform transform">
-                 Deep Learning
-            </div>
-            <div class="hover-card p-6 bg-white rounded-lg shadow-md transition-transform transform">
-                 AI Security
-            </div>
-            <div class="hover-card p-6 bg-white rounded-lg shadow-md transition-transform transform">
-                 AI Privacy
-            </div>
-            <div class="hover-card p-6 bg-white rounded-lg shadow-md transition-transform transform">
-                 Trustworthy AI
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section class="container mx-auto mt-16 px-6">
-        <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Education</h2>
-        <div class="bg-white rounded-lg shadow-lg p-8 transition duration-300 hover:shadow-2xl">
-            <h3 class="text-2xl font-bold text-purple-600">Bachelor of Science in Computer Science (2019-2024)</h3>
-            <p class="text-gray-700 mt-4">Amirkabir University of Technology, Tehran (Iran)</p>
-            <p class="text-gray-500 mt-2">GPA: 18.21/20 (3.85/4) | Last Two Years GPA: 19.01/20 (4/4)</p>
-            <p class="mt-4 text-gray-600">Thesis: Forward-Forward Algorithm in Neural Networks</p>
-        </div>
-    </section>
-
-    <!-- TOEFL Section -->
-    <section class="container mx-auto mt-16 px-6">
-        <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">English Proficiency</h2>
-        <div class="bg-white rounded-lg shadow-lg p-8 transition duration-300 hover:shadow-2xl">
-            <h3 class="text-2xl font-bold text-purple-600">Advanced Level TOEFL</h3>
-            <p class="text-gray-700 mt-4">Reading: 27</p>
-            <p class="text-gray-700 mt-2">Listening: 28</p>
-            <p class="text-gray-700 mt-2">Speaking: 25</p>
-            <p class="text-gray-700 mt-2">Writing: 22</p>
-            <p class="text-gray-700 mt-4 font-semibold">Total Score: 102</p>
-        </div>
-    </section>
-
-    <!-- Teaching Experience Section -->
-    <section class="container mx-auto mt-16 px-6">
-        <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Teaching Experience</h2>
-        <div class="bg-white rounded-lg shadow-lg p-8 space-y-6 transition duration-300 hover:shadow-2xl">
-            <div class="flex justify-between">
-                <p> Introduction to Computer & Programming, TA (Prof. Goodarzi) - Fall 2022</p>
-                <p class="text-gray-500">AUT</p>
-            </div>
-            <div class="flex justify-between">
-                <p> Image Processing, TA (Prof. Shamsi) - Fall 2023</p>
-                <p class="text-gray-500">AUT</p>
-            </div>
-            <div class="flex justify-between">
-                <p> Artificial Intelligence & Workshop, TA (Prof. Ghatee) - Winter 2022 - Fall 2025</p>
-                <p class="text-gray-500">AUT</p>
-            </div>
-            <div class="flex justify-between">
-                <p> Data Mining, TA (Prof. Amirmazlaghani) - Fall 2023</p>
-                <p class="text-gray-500">AUT</p>
-            </div>
-            <div class="flex justify-between">
-                <p> Numerical Linear Algebra, TA (Prof. Dehghan) - Fall 2023 - Fall 2024</p>
-                <p class="text-gray-500">AUT</p>
-            </div>
-        </div>
-    </section>
-<!-- Projects Section -->
-<section class="container mx-auto mt-16 px-6">
-    <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-        <!-- N-Queen Problem -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Novel Heuristic for N-Queen Problem - Prof. Ghatee</h3>
-            <p class="text-gray-700 mt-4">
-                Introducing a groundbreaking heuristic approach to efficiently solve the N-Queen problem, 
-                resulting in a remarkable solution of placing 90 queens in just 52 moves and 22 seconds.
-            </p>
-            <a href="https://github.com/peyman-paknezhad/N-queen-heuristic" class="text-blue-500 hover:underline mt-4">[GitHub]</a>
-        </div>
-
-        <!-- Alpha-Beta Adversarial Search for Othello -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Alpha-Beta Adversarial Search with Minimax Pruning for Othello Implementation - Prof. Ghatee</h3>
-            <p class="text-gray-700 mt-4">
-                Implementing the game of Othello using an advanced adversarial search algorithm, combining alpha-beta pruning 
-                and minimax strategy, resulting in an intelligent Othello player.
-            </p>
-            <a href="https://github.com/peyman-paknezhad/Alpha-Beta-Adversarial-Search-with-Minimax-Pruning-for-Othello" class="text-blue-500 hover:underline mt-4">[GitHub]</a>
-        </div>
-
-        <!-- Hybrid Particle Swarm Optimization -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Hybrid Particle Swarm Optimization with Novel Local Search for Feature Subset Selection - Prof. Ghatee</h3>
-            <p class="text-gray-700 mt-4">
-                Developing a cutting-edge hybrid particle swarm optimization algorithm that integrates a novel local search strategy, 
-                enabling efficient feature subset selection for complex problems.
-            </p>
-            <a href="https://github.com/peyman-paknezhad/HPSO-LS" class="text-blue-500 hover:underline mt-4">[GitHub]</a>
-        </div>
-
-        <!-- Comparison of Meta-Heuristic Methods -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Comparison of Meta-Heuristic Methods for Optimizing Neural Network Coefficients in IRIS Classification - Prof. Ghatee</h3>
-            <p class="text-gray-700 mt-4">
-                Evaluating and comparing various meta-heuristic algorithms to optimize the coefficients of a neural network, 
-                specifically applied to solving the IRIS classification problem.
-            </p>
-            <a href="https://github.com/peyman-paknezhad/metaheuristic-optimization-NN" class="text-blue-500 hover:underline mt-4">[GitHub]</a>
-        </div>
-
-        <!-- Eigenvalue Properties in Network Analysis -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Eigenvalue Properties of Adjacency Matrix and Laplacian in Network Analysis - Prof. Dehghan</h3>
-            <p class="text-gray-700 mt-4">
-                Investigating the properties of eigenvalues associated with the adjacency matrix and Laplacian matrix in network analysis, 
-                providing valuable insights into the structure and dynamics of networks.
-            </p>
-        </div>
-
-        <!-- Solving Interval Linear Systems -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Solving Interval Linear Systems using Jacobi and Gauss-Seidel Methods - Prof. Dehghan</h3>
-            <p class="text-gray-700 mt-4">
-                Implementing the Jacobi and Gauss-Seidel methods to solve interval linear systems, offering efficient and accurate solutions 
-                for systems with uncertain or interval-valued coefficients.
-            </p>
-        </div>
-
-        <!-- Adversarial Robustness in Neural Networks -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Adversarial Robustness in Neural Networks: FGSM, BIM, and PGD Attacks - Spring 2024</h3>
-            <p class="text-gray-700 mt-4">
-                Implementing FGSM, BIM, and PGD attacks to evaluate neural network robustness, highlighting vulnerabilities and defense strategies 
-                in adversarial settings.
-            </p>
-            <a href="https://github.com/peyman-paknezhad/Adversarial-Robustness-in-Neural-Networks-Implementation-and-Assessment-of-FGSM-BIM-and-PGD-Attacks" class="text-blue-500 hover:underline mt-4">[GitHub]</a>
-        </div>
-
-        <!-- Cluster Impurity Method for Backdoor Attacks -->
-        <div class="hover-card p-8 bg-white rounded-lg shadow-lg transition-transform">
-            <h3 class="text-2xl font-bold text-purple-600">Cluster Impurity Method for Identifying Backdoor Attacks without the Need to Clean the Data - Spring 2024</h3>
-            <p class="text-gray-700 mt-4">
-                Implementing the Cluster Impurity method to identify backdoor attacks without the need to clean the data, 
-                providing a novel defense mechanism for machine learning models.
-            </p>
-            <a href="https://github.com/peyman-paknezhad/Cluster-impurity-method-for-identifying-backdoor-attacks-without-the-need-to-clean-the-data" class="text-blue-500 hover:underline mt-4">[GitHub]</a>
-        </div>
-
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div id="loadingText">Glad to see you around!</div>
     </div>
-</section>
 
-    <!-- Skills Section -->
-    <section class="container mx-auto mt-16 px-6">
-        <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Skills</h2>
-        <div class="flex flex-wrap gap-4 justify-center">
-            <span class="bg-purple-200 px-4 py-2 rounded-full text-purple-800 text-lg">Python</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-blue-800 text-lg">PyTorch</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-red-800 text-lg">TensorFlow</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-green-800 text-lg">NumPy</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-yellow-800 text-lg">OpenCV</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-pink-800 text-lg">LaTeX</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-gray-800 text-lg">Git</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-indigo-800 text-lg">Microsoft SQL Server</span>
-            <span class="bg-gray-200 px-4 py-2 rounded-full text-teal-800 text-lg">C</span>
+    <div id="background">
+        <canvas id="scene"></canvas>
+    </div>
+
+    <!-- Home Page -->
+    <div class="container" id="home">
+        <div class="header">Peyman Paknezhad</div>
+        <img src="IMG/IMG1.JPG" alt="Peyman Paknezhad" class="profile-pic">
+        <div class="button" id="about" data-tooltip="Get to know me better">
+            <span><i class="fas fa-user"></i> ABOUT</span>
         </div>
-    </section>
+        <div class="button" id="cv" data-tooltip="Check out my CV">
+            <span><i class="fas fa-file-alt"></i> CV</span>
+        </div>
 
-    <!-- Footer Section -->
+        <div class="button" id="personal" data-tooltip="Discover my personal side">
+            <span><i class="fas fa-smile"></i> PERSONAL</span>
+        </div>
+        <div class="button" id="contact" data-tooltip="Let’s get in touch!">
+            <span><i class="fas fa-envelope"></i> CONTACT</span>
+        </div>
+    </div>
+
+    <!-- Sections -->
+    <div class="section" id="aboutSection">
+        <h2>About Me</h2>
+        <p>Hi, I’m Peyman Paknezhad – a recent graduate in Computer Science from Amirkabir University of Technology (Tehran Polytechnic). I’m passionate about Machine Learning and Deep Learning, with a particular interest in adversarial machine learning, AI security, and trustworthy AI. I’m also fascinated by bio-inspired and efficient models that push the boundaries of what AI can do.</p>
+        <p>As someone in my 20s, I’m in the exciting phase of exploring different areas within deep learning and discovering new interests. So, don’t be surprised if this page evolves over time – it’s all part of the journey! Whether it’s diving into research, mentoring students, or tinkering with innovative algorithms, I’m always eager to learn, grow, and connect with like-minded people.</p>
+        <button class="home-button" onclick="goHome()">Home</button>
+    </div>
+   <div class="section" id="cvSection">
+    <h2>My CV</h2>
+
+
+<!-- Education -->
+<div class="glass-box">
+    <h3>Education</h3>
+    <div class="education-container">
+        <!-- Education Card 1 -->
+        <div class="education-card">
+            <p class="date">2019-2024</p>
+            <p class="degree">Bachelor of Science in Computer Science</p>
+            <p class="institution">Amirkabir University of Technology (Tehran Polytechnic)</p>
+            <p class="thesis"><em>Thesis:</em> Investigating the Forward-Forward Algorithm in Neural Networks</p>
+            <p class="gpa">GPA: 18.21/20 (3.85/4) | Last Two Years GPA: 19.01/20 (4/4)</p>
+        </div>
+
+        <!-- Education Card 2 (Example for additional items) -->
+        <div class="education-card">
+            <p class="date">2016-2019</p>
+            <p class="degree">High School Diploma in Mathematics</p>
+            <p class="institution">National Organization for Development of Exceptional Talents (NODET)</p>
+            <p class="gpa">GPA: 19.55/20</p>
+        </div>
+    </div>
+</div>
+
+    <!-- Research Interests -->
+    <div class="glass-box">
+        <h3>Research Interests</h3>
+        <div class="tag-list">
+            <span>Machine Learning</span>
+            <span>Adversarial Machine Learning</span>
+            <span>Deep Learning</span>
+            <span>AI Security</span>
+            <span>AI Privacy</span>
+            <span>Trustworthy AI</span>
+        </div>
+    </div>
+
+
+
+    <!-- Teaching Experience -->
+    <div class="glass-box">
+        <h3>Teaching Experience</h3>
+        <ul>
+            <li><strong>Introduction to Computer & Programming</strong> (Fall 2022) - Prof. Goodarzi</li>
+            <li><strong>Image Processing</strong> (Fall 2023) - Prof. Shamsi</li>
+            <li><strong>Artificial Intelligence & Workshop</strong> (Winter 2022) - Prof. Ghatee</li>
+            <li><strong>Data Mining</strong> (Fall 2023) - Prof. Amirmazlaghani</li>
+            <li><strong>Numerical Linear Algebra</strong> (Fall 2023-Fall 2024) - Prof. Dehghan</li>
+        </ul>
+    </div>
+
+<!-- Research Experience -->
+<div class="glass-box">
+    <h3>Research Experience</h3>
+    <div class="research-container">
+        <!-- Research Card 1 -->
+        <div class="research-card">
+            <p class="date">Sep 2022 - Oct 2023</p>
+            <p class="title">The Forward-Forward Algorithm: A Potential Replacement for Backpropagation?</p>
+            <p class="institution">Amirkabir University of Technology</p>
+            <p class="supervisor"><em>Supervisor:</em> Prof. Mostafa Shamsi</p>
+            <p class="description">
+                Conducted an investigation of the Forward-Forward algorithm as a potential alternative to backpropagation under the supervision of Prof. Mostafa Shamsi. Explored pruning methods to optimize model size and accuracy while evaluating the robustness of the algorithm.
+            </p>
+        </div>
+        
+        <!-- Research Card 2 (Example for additional items) -->
+        <div class="research-card">
+            <p class="date">Nov 2024 - Present</p>
+            <p class="title">Adversarial Attacks on Face Recognition Systems</p>
+            <p class="institution">University of Louisiana at Lafayette (Remotely)</p>
+            <p class="supervisor"><em>Supervisor:</em> Prof. Shuvalaxmi Dass</p>
+        </div>
+    </div>
+</div>
+    <!-- Honors and Awards -->
+    <div class="glass-box">
+        <h3>Honors and Awards</h3>
+        <ul>
+            <li>ranked among the top-performing students across multiple semesters</li>
+            <li>Ranked in Top 2% among 164,278 participants in Nationalwide Mathematics Entrance Exam (Konkour) for B.Sc. degree (2019)</li>
+        </ul>
+    </div>
+
+    <!-- Projects -->
+<div class="glass-box">
+    <h3>Projects</h3>
+    <div class="projects-container">
+
+
+        <!-- Project 3 -->
+        <div class="project-item">
+            <p class="title">Hybrid Particle Swarm Optimization with Novel Local Search for Feature Subset Selection</p>
+            <p class="details">Fall 2022 - Prof. Ghatee</p>
+            <a class="link" href= "https://github.com/peyman-paknezhad/HPSO-LS" target="_blank">GitHub</a>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-item">
+            <p class="title">Comparison of Meta-Heuristic Methods for Optimizing Neural Network Coefficients in IRIS Classification</p>
+            <p class="details">Fall 2022 - Prof. Ghatee</p>
+            <a class="link" href="https://github.com/peyman-paknezhad/metaheuristic-optimization-NN" target="_blank">GitHub</a>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-item">
+            <p class="title">Eigenvalue Properties of Adjacency Matrix and Laplacian in Network Analysis</p>
+            <p class="details">Winter 2022 - Prof. Dehghan</p>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-item">
+            <p class="title">Solving Interval Linear Systems using Jacobi and Gauss-Seidel Methods</p>
+            <p class="details">Winter 2022 - Prof. Dehghan</p>
+        </div>
+
+        <!-- Project 7 -->
+        <div class="project-item">
+            <p class="title">Adversarial Robustness in Neural Networks: FGSM, BIM, and PGD Attacks</p>
+            <p class="details">Spring 2024</p>
+            <a class="link" href="https://github.com/peyman-paknezhad/Adversarial-Robustness-in-Neural-Networks-Implementation-and-Assessment-of-FGSM-BIM-and-PGD-Attacks" target="_blank">GitHub</a>
+        </div>
+
+        <!-- Project 8 -->
+        <div class="project-item">
+            <p class="title">Cluster Impurity Method for Identifying Backdoor Attacks Without the Need to Clean the Data</p>
+            <p class="details">Spring 2024</p>
+            <a class="link" href="https://github.com/peyman-paknezhad/Cluster-impurity-method-for-identifying-backdoor-attacks-without-the-need-to-clean-the-data." target="_blank">GitHub</a>
+        </div>
+
+        <!-- Project 9 -->
+        <div class="project-item">
+            <p class="title">Adversarial Prompt Generation for Text-to-Image Models with Defense Strategies Using Language Models</p>
+            <p class="details">Spring 2024</p>
+            <a class="link" href="https://github.com/peyman-paknezhad/T2I-Adversarial-Prompts-Defense" target="_blank">GitHub</a>
+        </div>
+    </div>
+</div>
+
+    <!-- Notable Courses -->
+    <div class="glass-box">
+        <h3>Notable Courses</h3>
+        <div class="grid-list">
+            <span><strong>Data Structures & Algorithms:</strong> 20.0/20.0</span>
+            <span><strong>Data Mining:</strong> 20.0/20.0</span>
+            <span><strong>Numerical Linear Algebra:</strong> 20.0/20.0</span>
+            <span><strong>Principles of Software Design & Workshop:</strong> 18.9/20.0</span>
+            <span><strong>Image Processing:</strong> 19.1/20.0</span>
+            <span><strong>Database & Workshop:</strong> 20.0/20.0</span>
+            <span><strong>Artificial Intelligence & Workshop:</strong> 20.0/20.0</span>
+            <span><strong>Principles of Operating Systems:</strong> 20.0/20.0</span>
+        </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="glass-box">
+        <h3>Skills</h3>
+        <div class="grid-list">
+            <span><strong>Python:</strong> PyTorch, TensorFlow, Pandas, Scikit-learn, NumPy, Matplotlib, OpenCV, NetworkX, Pyomo</span>
+            <span><strong>Other:</strong> MATLAB, Maple, C, Microsoft SQL Server, Git, LaTeX, RapidMiner</span>
+        </div>
+    </div>
+
+<!-- English Proficiency -->
+<div class="glass-box">
+    <h3>English Proficiency</h3>
+    <div class="english-container">
+        <p class="test">TOEFL</p>
+        <p class="score"><strong>Total Score:</strong> 102</p>
+        <div class="breakdown">
+            <span>Reading: 27</span>
+            <span>Listening: 28</span>
+            <span>Speaking: 25</span>
+            <span>Writing: 22</span>
+        </div>
+    </div>
+</div>
+<button class="home-button" onclick="goHome()">Home</button>
+</div>
+    <button class="home-button" onclick="goHome()">Home</button>
+</div>
+
+    
+        <div class="section" id="personalSection">
+        <h2>Personal</h2>
+            <p>I’m from Neyshabur, a historic city in Iran known for its rich culture, turquoise gemstones, and being the hometown of the legendary Omar Khayyam. I deeply admire Khayyam’s poetry, especially his Rubaiyat, which beautifully captures the essence of life, love, and the passage of time.</p>
+            <p>When I’m not immersed in poetry, you’ll find me passionately following soccer—I’m a huge Liverpool FC fan! The team’s spirit and the anthem You’ll Never Walk Alone always inspire me. Soccer is more than a sport for me; it’s a way to connect with others and share unforgettable moments.</p>
+        <button class="home-button" onclick="goHome()">Home</button>
+    </div>
+    
+    
+<!-- Contact -->
+<div class="section" id="contactSection">
+    <h2>Contact</h2>
+    <p>Feel free to reach out to me! Whether you have a question, want to collaborate, or just want to say hello, I’d love to hear from you.</p>
+    
+    <div class="contact-links">
+        <!-- LinkedIn -->
+        <a href="http://www.linkedin.com/in/peyman-paknezhad" target="_blank" class="contact-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        
+        <!-- GitHub -->
+        <a href="https://github.com/peyman-paknezhad" target="_blank" class="contact-link">
+            <i class="fab fa-github"></i> GitHub
+        </a>
+        
+        <!-- Email -->
+        <a href="mailto:peyman.paknezhad.aut@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> Email
+        </a>
+    </div>
+    
+    <button class="home-button" onclick="goHome()">Home</button>
+</div>
+
+    <!-- Footer -->
     <footer>
-        <p>Peyman Paknezhad</p>
+        <p>&copy; 2023 Peyman Paknezhad | <a href="mailto:your.email@example.com">Contact Me</a></p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // 3D Scene for Background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('scene') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Particles
+        const particleCount = 1000;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
+
+        const positions = [];
+        for (let i = 0; i < particleCount; i++) {
+            positions.push((Math.random() - 0.5) * 200); // X
+            positions.push((Math.random() - 0.5) * 200); // Y
+            positions.push((Math.random() - 0.5) * 200); // Z
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        // Lighting
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        // Camera position
+        camera.position.z = 50;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.y += 0.001;
+            particles.rotation.x += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Adjust to window size
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Remove loading screen after animation
+        setTimeout(() => {
+            document.getElementById('loadingScreen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 500);
+        }, 4000);
+
+        // Section Navigation
+        const buttons = document.querySelectorAll('.button');
+        const sections = document.querySelectorAll('.section');
+        const home = document.getElementById('home');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.id + 'Section';
+                home.style.opacity = '0';
+                home.style.transform = 'translateY(-50px)';
+                setTimeout(() => {
+                    home.style.display = 'none';
+                    document.getElementById(target).classList.add('active');
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            });
+        });
+
+        function goHome() {
+            sections.forEach(section => section.classList.remove('active'));
+            home.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                home.style.opacity = '1';
+                home.style.transform = 'translateY(0)';
+            }, 50);
+        }
+    </script>
 </body>
 </html>
