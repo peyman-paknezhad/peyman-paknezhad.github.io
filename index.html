@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peyman Paknezhad</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+    :root {
+        --primary: #0a192f;
+        --secondary: #0c2a4d;
+        --accent: #004e92;
+        --light: #64b5f6;
+        --highlight: #4fc3f7;
+    }
+
     body, html {
         margin: 0;
         padding: 0;
@@ -14,6 +22,7 @@
         color: white;
         overflow-x: hidden;
         height: 100%;
+        background: var(--primary);
     }
 
     #background {
@@ -23,6 +32,15 @@
         width: 100%;
         height: 100%;
         z-index: -1;
+        background: linear-gradient(-45deg, var(--primary), var(--secondary), var(--accent), #000428);
+        background-size: 400% 400%;
+        animation: gradient 18s ease infinite;
+    }
+
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
     .header {
@@ -30,86 +48,157 @@
         top: 20px;
         width: 100%;
         text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: 2.5rem;
+        font-weight: 700;
         color: white;
+        text-shadow: 0 0 15px rgba(100, 181, 246, 0.7);
+        letter-spacing: 1px;
     }
 
     .container {
         position: relative;
         display: flex;
-        gap: 20px;
+        gap: 30px;
         justify-content: center;
         align-items: center;
         height: 100vh;
         flex-wrap: wrap;
-        transition: opacity 0.5s ease, transform 0.5s ease;
+        transition: opacity 0.6s ease, transform 0.6s ease;
         overflow: hidden;
+        padding: 20px;
+    }
+
+    .profile-pic {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--light);
+        box-shadow: 0 0 0 8px rgba(100, 181, 246, 0.2),
+                    0 0 30px rgba(79, 195, 247, 0.6);
+        margin-bottom: 20px;
+        animation: float 4s ease-in-out infinite;
+        transition: all 0.4s ease;
+    }
+
+    .profile-pic:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 12px rgba(100, 181, 246, 0.3),
+                    0 0 40px rgba(79, 195, 247, 0.8);
+        animation: glow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+
+    @keyframes glow {
+        0%, 100% { box-shadow: 0 0 0 8px rgba(100, 181, 246, 0.2), 0 0 30px rgba(79, 195, 247, 0.6); }
+        50% { box-shadow: 0 0 0 12px rgba(100, 181, 246, 0.3), 0 0 40px rgba(79, 195, 247, 0.8); }
     }
 
     .button {
         position: relative;
-        width: 150px;
-        height: 150px;
-        background: linear-gradient(145deg, #1a1a1a, #333333);
+        width: 160px;
+        height: 160px;
+        background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
         border-radius: 50%;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5), -5px -5px 15px rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
+                    inset 0 0 15px rgba(255, 255, 255, 0.1);
         display: flex;
         justify-content: center;
         align-items: center;
         color: white;
-        font-size: 1rem;
-        font-weight: bold;
+        font-size: 1.1rem;
+        font-weight: 600;
         text-align: center;
         cursor: pointer;
-        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.15);
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    .button::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(100, 181, 246, 0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
     }
 
     .button:hover {
-        transform: scale(2.5) translate(0, -20px);
-        box-shadow: 0px 10px 25px rgba(255, 255, 255, 0.5);
-        z-index: 100;
+        transform: scale(1.15) translateY(-15px);
+        box-shadow: 0 15px 35px rgba(0, 150, 255, 0.4),
+                    inset 0 0 20px rgba(255, 255, 255, 0.2);
+        background: linear-gradient(145deg, rgba(100, 181, 246, 0.25), rgba(79, 195, 247, 0.15));
+        z-index: 10;
+    }
+
+    .button:hover::before {
+        opacity: 1;
     }
 
     .button span {
         pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .button i {
+        font-size: 2rem;
+        color: var(--highlight);
     }
 
     .button::after {
         content: attr(data-tooltip);
         position: absolute;
-        bottom: -30px;
+        bottom: -40px;
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(10, 25, 47, 0.95);
         color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 0.7rem;
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-size: 0.85rem;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+        border: 1px solid rgba(100, 181, 246, 0.3);
     }
 
     .button:hover::after {
         opacity: 1;
+        bottom: -50px;
     }
 
-    /* Sections */
     .section {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         min-height: 100vh;
-        padding: 20px;
+        padding: 100px 20px 60px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+        transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         overflow-y: auto;
+        background: rgba(10, 25, 47, 0.85);
+        backdrop-filter: blur(10px);
     }
 
     .section.active {
@@ -118,523 +207,479 @@
     }
 
     .section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
+        font-size: 2.8rem;
+        margin-bottom: 30px;
+        text-shadow: 0 0 15px rgba(79, 195, 247, 0.5);
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, var(--highlight), transparent);
+        border-radius: 2px;
     }
 
     .section p {
         text-align: justify;
-        max-width: 600px;
-        margin: 0 auto 20px auto;
+        max-width: 700px;
+        margin: 0 auto 25px auto;
         font-size: 1.2rem;
+        line-height: 1.7;
+        color: #e0f7fa;
     }
 
     .home-button {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding: 10px 20px;
-        background: #333;
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        padding: 12px 25px;
+        background: linear-gradient(145deg, rgba(100, 181, 246, 0.2), rgba(79, 195, 247, 0.15));
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 30px;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 1.1rem;
         z-index: 1000;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(100, 181, 246, 0.3);
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    /* Loading Screen */
+    .home-button:hover {
+        background: linear-gradient(145deg, rgba(100, 181, 246, 0.3), rgba(79, 195, 247, 0.25));
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 150, 255, 0.4);
+    }
+
+    .home-button i {
+        font-size: 1.2rem;
+    }
+
+    /* Minimal Loading Screen */
     #loadingScreen {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
+        background: var(--primary);
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 1000;
         flex-direction: column;
-        transition: opacity 1s ease;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
     }
 
-    #loadingText {
-        font-size: 1.5rem;
-        color: white;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        width: 0;
-        animation: typing 5s steps(30) 1s 1 normal both, blink 0.75s step-end infinite;
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(100, 181, 246, 0.3);
+        border-top: 3px solid var(--highlight);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
     }
 
-    /* Typing Effect */
-    @keyframes typing {
-        0% {
-            width: 0;
-        }
-        100% {
-            width: 100%;
-        }
+    .loading-text {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        letter-spacing: 1px;
     }
 
-    /* Blinking Cursor */
-    @keyframes blink {
-        50% {
-            border-color: transparent;
-        }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 
-    /* Footer */
     footer {
         position: fixed;
-        bottom: 10px;
+        bottom: 15px;
         width: 100%;
         text-align: center;
-        font-size: 0.8rem;
-        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 0 8px rgba(0,0,0,0.4);
+        padding: 0 20px;
+        box-sizing: border-box;
     }
 
     footer a {
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--highlight);
         text-decoration: none;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    footer a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--highlight);
+        transition: width 0.3s ease;
     }
 
     footer a:hover {
         color: white;
     }
 
-    /* Responsive Design */
+    footer a:hover::after {
+        width: 100%;
+    }
+
     @media (max-width: 768px) {
         .button {
-            width: 100px;
-            height: 100px;
-            font-size: 0.8rem;
+            width: 130px;
+            height: 130px;
+            font-size: 0.9rem;
         }
-    }
-
-/* Consistent Glass Box Styling */
-.glass-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    text-align: left;
-    width: 80%;
-    max-width: 800px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.glass-box h3 {
-    margin-top: 0;
-    font-size: 1.6rem;
-    color: white;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-/* Tag List for Skills and Research Interests */
-.tag-list, .grid-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tag-list span, .grid-list span {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: white;
-    transition: background 0.3s ease;
-}
-
-.tag-list span:hover, .grid-list span:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Education Section Styling */
-.education-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.education-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.education-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.education-card .date {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 10px;
-}
-
-.education-card .degree {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.education-card .institution {
-    font-size: 1rem;
-    color: white;
-    font-style: italic;
-    margin-bottom: 10px;
-}
-
-.education-card .thesis, .education-card .gpa {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 5px;
-}
-
-.education-card .thesis {
-    font-style: italic;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .education-card {
-        padding: 15px;
-    }
-
-    .education-card .degree {
-        font-size: 1.1rem;
-    }
-
-    .education-card .institution {
-        font-size: 0.95rem;
-    }
-}
-/* Research Section Styling */
-.research-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.research-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.research-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.research-card .date {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 10px;
-}
-
-.research-card .title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.research-card .institution {
-    font-size: 1rem;
-    color: white;
-    font-style: italic;
-    margin-bottom: 10px;
-}
-
-.research-card .supervisor {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 10px;
-}
-
-.research-card .description {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.5;
-    margin-top: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .research-card {
-        padding: 15px;
-    }
-
-    .research-card .title {
-        font-size: 1.1rem;
-    }
-
-    .research-card .institution {
-        font-size: 0.95rem;
-    }
-
-    .research-card .description {
-        font-size: 0.9rem;
-    }
-}
-/* English Proficiency Section Styling */
-.english-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.english-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.english-container .test {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 10px;
-}
-
-.english-container .score {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 15px;
-}
-
-.english-container .breakdown {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.english-container .breakdown span {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    color: white;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .english-container {
-        padding: 15px;
-    }
-
-    .english-container .test {
-        font-size: 1.3rem;
-    }
-
-    .english-container .score {
-        font-size: 1.1rem;
-    }
-
-    .english-container .breakdown span {
-        font-size: 0.8rem;
-    }
-}
-
-/* Projects Section Styling */
-.projects-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.project-item {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.project-item:not(:last-child) {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Light line separator */
-    padding-bottom: 20px;
-    margin-bottom: 10px;
-}
-
-.project-item .title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.project-item .details {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 10px;
-}
-
-.project-item .link {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.project-item .link:hover {
-    color: white;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .project-item {
-        padding: 15px;
-    }
-
-    .project-item .title {
-        font-size: 1.1rem;
-    }
-
-    .project-item .details {
-        font-size: 0.9rem;
-    }
-}
-
-.contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
-
-.contact-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    color: white;
-    text-decoration: none;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.contact-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
-}
-
-.contact-link i {
-    font-size: 1.2rem;
-}
-
-
-
-        /* Add animation to the profile picture */
+        
         .profile-pic {
             width: 150px;
             height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
         }
+        
+        .section h2 {
+            font-size: 2.2rem;
+        }
+        
+        .section p {
+            font-size: 1.1rem;
+        }
+        
+        .header {
+            font-size: 2rem;
+        }
+    }
 
-        /* Floating animation */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+    @media (max-width: 480px) {
+        .button {
+            width: 110px;
+            height: 110px;
+            font-size: 0.8rem;
         }
+        
+        .button i {
+            font-size: 1.5rem;
+        }
+        
+        .container {
+            gap: 20px;
+        }
+        
+        .section {
+            padding: 80px 15px 50px;
+        }
+    }
 
-        /* Add a glowing effect on hover */
-        .profile-pic:hover {
-            animation: glow 1.5s ease-in-out infinite;
-        }
+    .glass-box {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(100, 181, 246, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                    inset 0 0 15px rgba(255, 255, 255, 0.05);
+        text-align: left;
+        width: 90%;
+        max-width: 900px;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
 
-        /* Glowing animation */
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
-            }
-            50% {
-                box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.8);
-            }
-        }
-</style>
+    .glass-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--light), var(--highlight));
+    }
+
+    .glass-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-box h3 {
+        margin-top: 0;
+        font-size: 1.8rem;
+        color: white;
+        border-bottom: 1px solid rgba(100, 181, 246, 0.3);
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .glass-box h3 i {
+        color: var(--highlight);
+    }
+
+    .tag-list, .grid-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .tag-list span, .grid-list span {
+        background: rgba(100, 181, 246, 0.15);
+        padding: 10px 15px;
+        border-radius: 30px;
+        font-size: 0.95rem;
+        color: #e0f7fa;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(100, 181, 246, 0.2);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .tag-list span:hover, .grid-list span:hover {
+        background: rgba(79, 195, 247, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .education-container, .research-container, .projects-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .education-card, .research-card, .project-item {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        border: 1px solid rgba(100, 181, 246, 0.15);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .education-card:hover, .research-card:hover, .project-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3),
+                    0 0 0 1px rgba(100, 181, 246, 0.3);
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .education-card .date, .research-card .date {
+        font-size: 1rem;
+        color: var(--highlight);
+        margin-bottom: 12px;
+        font-weight: 500;
+    }
+
+    .education-card .degree, .research-card .title, .project-item .title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 8px;
+    }
+
+    .education-card .institution, .research-card .institution {
+        font-size: 1.1rem;
+        color: #bbdefb;
+        font-style: italic;
+        margin-bottom: 12px;
+    }
+
+    .education-card .thesis, .education-card .gpa, 
+    .research-card .supervisor, .research-card .description,
+    .project-item .details {
+        font-size: 1rem;
+        color: #e0f7fa;
+        margin-bottom: 8px;
+        line-height: 1.6;
+    }
+
+    .education-card .thesis, .research-card .supervisor {
+        font-style: italic;
+    }
+
+    .project-item .link {
+        display: inline-block;
+        margin-top: 10px;
+        color: var(--highlight);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        padding-left: 25px;
+    }
+
+    .project-item .link::before {
+        content: '\f09b';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .project-item .link:hover {
+        color: white;
+        padding-left: 30px;
+    }
+
+    .project-item .link:hover::after {
+        width: 100%;
+    }
+
+    .english-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        border: 1px solid rgba(100, 181, 246, 0.2);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s ease;
+        text-align: center;
+    }
+
+    .english-container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .english-container .test {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 15px;
+        text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+    }
+
+    .english-container .score {
+        font-size: 1.4rem;
+        color: #e0f7fa;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .english-container .breakdown {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .english-container .breakdown span {
+        background: rgba(100, 181, 246, 0.15);
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-size: 1rem;
+        color: #e0f7fa;
+        min-width: 100px;
+        font-weight: 500;
+        border: 1px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+        max-width: 800px;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(100, 181, 246, 0.2);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .contact-link:hover {
+        background: rgba(100, 181, 246, 0.25);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 150, 255, 0.4);
+    }
+
+    .contact-link i {
+        font-size: 1.4rem;
+        color: var(--highlight);
+    }
+
+    ul {
+        padding-left: 25px;
+        color: #e0f7fa;
+    }
+
+    ul li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+    }
+
+    ul li strong {
+        color: white;
+    }
+    </style>
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Minimal Loading Screen -->
     <div id="loadingScreen">
-        <div id="loadingText">Glad to see you around!</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
     </div>
 
-    <div id="background">
-        <canvas id="scene"></canvas>
-    </div>
+    <div id="background"></div>
 
-    <!-- Home Page -->
     <div class="container" id="home">
         <div class="header">Peyman Paknezhad</div>
         <img src="IMG/IMG1.JPG" alt="Peyman Paknezhad" class="profile-pic">
+        
         <div class="button" id="about" data-tooltip="Get to know me better">
             <span><i class="fas fa-user"></i> ABOUT</span>
         </div>
         <div class="button" id="cv" data-tooltip="Check out my CV">
             <span><i class="fas fa-file-alt"></i> CV</span>
         </div>
-
         <div class="button" id="personal" data-tooltip="Discover my personal side">
             <span><i class="fas fa-smile"></i> PERSONAL</span>
         </div>
@@ -643,292 +688,229 @@
         </div>
     </div>
 
-    <!-- Sections -->
     <div class="section" id="aboutSection">
         <h2>About Me</h2>
-        <p>Hi, I’m Peyman Paknezhad – a recent graduate in Computer Science from Amirkabir University of Technology (Tehran Polytechnic). I’m passionate about Machine Learning and Deep Learning, with a particular interest in adversarial machine learning, AI security, and trustworthy AI. I’m also fascinated by bio-inspired and efficient models that push the boundaries of what AI can do.</p>
-        <p>As someone in my 20s, I’m in the exciting phase of exploring different areas within deep learning and discovering new interests. So, don’t be surprised if this page evolves over time – it’s all part of the journey! Whether it’s diving into research, mentoring students, or tinkering with innovative algorithms, I’m always eager to learn, grow, and connect with like-minded people.</p>
-        <button class="home-button" onclick="goHome()">Home</button>
-    </div>
-   <div class="section" id="cvSection">
-    <h2>My CV</h2>
-
-
-<!-- Education -->
-<div class="glass-box">
-    <h3>Education</h3>
-    <div class="education-container">
-        <!-- Education Card 1 -->
-        <div class="education-card">
-            <p class="date">2019-2024</p>
-            <p class="degree">Bachelor of Science in Computer Science</p>
-            <p class="institution">Amirkabir University of Technology (Tehran Polytechnic)</p>
-            <p class="thesis"><em>Thesis:</em> Investigating the Forward-Forward Algorithm in Neural Networks</p>
-            <p class="gpa">GPA: 18.21/20 (3.85/4) | Last Two Years GPA: 19.01/20 (4/4)</p>
-        </div>
-
-        <!-- Education Card 2 (Example for additional items) -->
-        <div class="education-card">
-            <p class="date">2016-2019</p>
-            <p class="degree">High School Diploma in Mathematics</p>
-            <p class="institution">National Organization for Development of Exceptional Talents (NODET)</p>
-            <p class="gpa">GPA: 19.55/20</p>
-        </div>
-    </div>
-</div>
-
-    <!-- Research Interests -->
-    <div class="glass-box">
-        <h3>Research Interests</h3>
-        <div class="tag-list">
-            <span>Machine Learning</span>
-            <span>Adversarial Machine Learning</span>
-            <span>Deep Learning</span>
-            <span>AI Security</span>
-            <span>AI Privacy</span>
-            <span>Trustworthy AI</span>
-        </div>
+        <p>        Hello! I'm Peyman Paknezhad, a Master's student in the Erasmus Mundus program for Image Processing and Computer Vision (IPCVai). My passion lies in building the next generation of intelligent and reliable systems, a journey that began with my Bachelor's degree in Computer Science from Amirkabir University of Technology.</p>
+        <p>        My work centers on the intersection of deep learning and security. I am particularly drawn to the complex challenges of adversarial machine learning, AI security, and the development of trustworthy AI. The questions that drive me are: How can we make AI models robust against manipulation? And how do we ensure they operate safely and reliably? Exploring these areas, alongside my interest in bio-inspired and efficient computing, is the core of my academic ambition. I am always eager to learn, collaborate on meaningful projects, and connect with others who share my passion.</p>
+        <button class="home-button" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
     </div>
 
+    <div class="section" id="cvSection">
+        <h2>My CV</h2>
 
+        <div class="glass-box">
+            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+            <div class="education-container">
+              
+                <div class="education-card">
+                  <p class="date">Sep 2025 - 2027</p>
+                  <p class="degree">Erasmus Mundus Joint Master in Image Processing and Computer Vision (IPCVai)</p>
+                  <p class="institution">Pázmány Péter Catholic University (Hungary) | Universidad Autónoma de Madrid (Spain) | University of Bordeaux (France)</p>
+              </div>
+              
+              
+                <div class="education-card">
+                    <p class="date">2019-2024</p>
+                    <p class="degree">Bachelor of Science in Computer Science</p>
+                    <p class="institution">Amirkabir University of Technology (Tehran Polytechnic)</p>
+                    <p class="thesis"><em>Thesis:</em> Investigating the Forward-Forward Algorithm in Neural Networks</p>
+                    <p class="gpa">GPA: 18.21/20 (3.85/4) | Last Two Years GPA: 19.01/20 (4/4)</p>
+                </div>
 
-    <!-- Teaching Experience -->
-    <div class="glass-box">
-        <h3>Teaching Experience</h3>
-        <ul>
-            <li><strong>Introduction to Computer & Programming</strong> (Fall 2022) - Prof. Goodarzi</li>
-            <li><strong>Image Processing</strong> (Fall 2023) - Prof. Shamsi</li>
-            <li><strong>Artificial Intelligence & Workshop</strong> (Winter 2022) - Prof. Ghatee</li>
-            <li><strong>Data Mining</strong> (Fall 2023) - Prof. Amirmazlaghani</li>
-            <li><strong>Numerical Linear Algebra</strong> (Fall 2023-Fall 2024) - Prof. Dehghan</li>
-        </ul>
+                <div class="education-card">
+                    <p class="date">2016-2019</p>
+                    <p class="degree">High School Diploma in Mathematics</p>
+                    <p class="institution">National Organization for Development of Exceptional Talents (NODET)</p>
+                    <p class="gpa">GPA: 19.55/20</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-search"></i> Research Interests</h3>
+            <div class="tag-list">
+                    
+                    
+                <span>Deep Learning</span>
+                <span>Computer Vision</span>
+                <span>Image Processing</span>
+                <span>Adversarial Machine Learning</span>
+                <span>AI Security & Privacy</span>
+                <span>Neural Data Compression</span>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-chalkboard-teacher"></i> Teaching Experience</h3>
+            <ul>
+                <li><strong>Introduction to Computer & Programming</strong> (Fall 2022) - Prof. Goodarzi</li>
+                <li><strong>Image Processing</strong> (Fall 2023) - Prof. Shamsi</li>
+                <li><strong>Artificial Intelligence & Workshop</strong> (Winter 2022) - Prof. Ghatee</li>
+                <li><strong>Data Mining</strong> (Fall 2023) - Prof. Amirmazlaghani</li>
+                <li><strong>Numerical Linear Algebra</strong> (Fall 2023-Fall 2024) - Prof. Dehghan</li>
+            </ul>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-flask"></i> Research Experience</h3>
+            <div class="research-container">
+                <div class="research-card">
+                    <p class="date">Sep 2022 - Oct 2023</p>
+                    <p class="title">The Forward-Forward Algorithm: A Potential Replacement for Backpropagation?</p>
+                    <p class="institution">Amirkabir University of Technology</p>
+                    <p class="supervisor"><em>Supervisor:</em> Prof. Mostafa Shamsi</p>
+                    <p class="description">
+                        Conducted an investigation of the Forward-Forward algorithm as a potential alternative to backpropagation under the supervision of Prof. Mostafa Shamsi. Explored pruning methods to optimize model size and accuracy while evaluating the robustness of the algorithm.
+                    </p>
+                </div>
+                
+                <div class="research-card">
+                    <p class="date">Nov 2024 - Present</p>
+                    <p class="title">Face Recognition for Online User Authentication</p>
+                    <p class="institution">University of Louisiana at Lafayette (Remotely)</p>
+                    <p class="supervisor"><em>Supervisor:</em> Prof. Shuvalaxmi Dass</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-award"></i> Honors and Awards</h3>
+            <ul>
+                <li>Recipient of the Erasmus Mundus Scholarship for the IPCVai Joint Master's program (2025)</li>
+                <li>Ranked among the top-performing students across multiple semesters</li>
+                <li>Ranked in Top 2% among 164,278 participants in Nationalwide Mathematics Entrance Exam (Konkour) for B.Sc. degree (2019)</li>
+            </ul>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+            <div class="projects-container">
+                <div class="project-item">
+                    <p class="title">Hybrid Particle Swarm Optimization with Novel Local Search for Feature Subset Selection</p>
+                    <p class="details">Fall 2022 - Prof. Ghatee</p>
+                    <a class="link" href="
+https://github.com/peyman-paknezhad/HPSO-LS  
+  " target="_blank">GitHub</a>
+                </div>
+
+                <div class="project-item">
+                    <p class="title">Comparison of Meta-Heuristic Methods for Optimizing Neural Network Coefficients in IRIS Classification</p>
+                    <p class="details">Fall 2022 - Prof. Ghatee</p>
+                    <a class="link" href="https://github.com/peyman-paknezhad/metaheuristic-optimization-NN  
+  " target="_blank">GitHub</a>
+                </div>
+
+                <div class="project-item">
+                    <p class="title">Eigenvalue Properties of Adjacency Matrix and Laplacian in Network Analysis</p>
+                    <p class="details">Winter 2022 - Prof. Dehghan</p>
+                </div>
+
+                <div class="project-item">
+                    <p class="title">Solving Interval Linear Systems using Jacobi and Gauss-Seidel Methods</p>
+                    <p class="details">Winter 2022 - Prof. Dehghan</p>
+                </div>
+
+                <div class="project-item">
+                    <p class="title">Adversarial Robustness in Neural Networks: FGSM, BIM, and PGD Attacks</p>
+                    <p class="details">Spring 2024</p>
+                    <a class="link" href="https://github.com/peyman-paknezhad/Adversarial-Robustness-in-Neural-Networks-Implementation-and-Assessment-of-FGSM-BIM-and-PGD-Attacks  
+  " target="_blank">GitHub</a>
+                </div>
+
+                <div class="project-item">
+                    <p class="title">Cluster Impurity Method for Identifying Backdoor Attacks Without the Need to Clean the Data</p>
+                    <p class="details">Spring 2024</p>
+                    <a class="link" href="https://github.com/peyman-paknezhad/Cluster-impurity-method-for-identifying-backdoor-attacks-without-the-need-to-clean-the-data.  
+  " target="_blank">GitHub</a>
+                </div>
+
+                <div class="project-item">
+                    <p class="title">Adversarial Prompt Generation for Text-to-Image Models with Defense Strategies Using Language Models</p>
+                    <p class="details">Spring 2024</p>
+                    <a class="link" href="https://github.com/peyman-paknezhad/T2I-Adversarial-Prompts-Defense  
+  " target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-book"></i> Notable Courses</h3>
+            <div class="grid-list">
+                <span><strong>Data Structures & Algorithms:</strong> 20.0/20.0</span>
+                <span><strong>Data Mining:</strong> 20.0/20.0</span>
+                <span><strong>Numerical Linear Algebra:</strong> 20.0/20.0</span>
+                <span><strong>Principles of Software Design & Workshop:</strong> 18.9/20.0</span>
+                <span><strong>Image Processing:</strong> 19.1/20.0</span>
+                <span><strong>Database & Workshop:</strong> 20.0/20.0</span>
+                <span><strong>Artificial Intelligence & Workshop:</strong> 20.0/20.0</span>
+                <span><strong>Principles of Operating Systems:</strong> 20.0/20.0</span>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-code"></i> Skills</h3>
+            <div class="grid-list">
+                <span><strong>Python:</strong> PyTorch, TensorFlow, Pandas, Scikit-learn, NumPy, Matplotlib, OpenCV, NetworkX, Pyomo</span>
+                <span><strong>Other:</strong> MATLAB, Maple, C, Microsoft SQL Server, Git, LaTeX, RapidMiner</span>
+            </div>
+        </div>
+
+        <div class="glass-box">
+            <h3><i class="fas fa-language"></i> English Proficiency</h3>
+            <div class="english-container">
+                <p class="test">TOEFL</p>
+                <p class="score"><strong>Total Score:</strong> 102</p>
+                <div class="breakdown">
+                    <span>Reading: 27</span>
+                    <span>Listening: 28</span>
+                    <span>Speaking: 25</span>
+                    <span>Writing: 22</span>
+                </div>
+            </div>
+        </div>
+        <button class="home-button" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
     </div>
 
-<!-- Research Experience -->
-<div class="glass-box">
-    <h3>Research Experience</h3>
-    <div class="research-container">
-        <!-- Research Card 1 -->
-        <div class="research-card">
-            <p class="date">Sep 2022 - Oct 2023</p>
-            <p class="title">The Forward-Forward Algorithm: A Potential Replacement for Backpropagation?</p>
-            <p class="institution">Amirkabir University of Technology</p>
-            <p class="supervisor"><em>Supervisor:</em> Prof. Mostafa Shamsi</p>
-            <p class="description">
-                Conducted an investigation of the Forward-Forward algorithm as a potential alternative to backpropagation under the supervision of Prof. Mostafa Shamsi. Explored pruning methods to optimize model size and accuracy while evaluating the robustness of the algorithm.
-            </p>
-        </div>
-        
-        <!-- Research Card 2 (Example for additional items) -->
-        <div class="research-card">
-            <p class="date">Nov 2024 - Present</p>
-            <p class="title">Adversarial Attacks on Face Recognition Systems</p>
-            <p class="institution">University of Louisiana at Lafayette (Remotely)</p>
-            <p class="supervisor"><em>Supervisor:</em> Prof. Shuvalaxmi Dass</p>
-        </div>
-    </div>
-</div>
-    <!-- Honors and Awards -->
-    <div class="glass-box">
-        <h3>Honors and Awards</h3>
-        <ul>
-            <li>ranked among the top-performing students across multiple semesters</li>
-            <li>Ranked in Top 2% among 164,278 participants in Nationalwide Mathematics Entrance Exam (Konkour) for B.Sc. degree (2019)</li>
-        </ul>
-    </div>
-
-    <!-- Projects -->
-<div class="glass-box">
-    <h3>Projects</h3>
-    <div class="projects-container">
-
-
-        <!-- Project 3 -->
-        <div class="project-item">
-            <p class="title">Hybrid Particle Swarm Optimization with Novel Local Search for Feature Subset Selection</p>
-            <p class="details">Fall 2022 - Prof. Ghatee</p>
-            <a class="link" href= "https://github.com/peyman-paknezhad/HPSO-LS" target="_blank">GitHub</a>
-        </div>
-
-        <!-- Project 4 -->
-        <div class="project-item">
-            <p class="title">Comparison of Meta-Heuristic Methods for Optimizing Neural Network Coefficients in IRIS Classification</p>
-            <p class="details">Fall 2022 - Prof. Ghatee</p>
-            <a class="link" href="https://github.com/peyman-paknezhad/metaheuristic-optimization-NN" target="_blank">GitHub</a>
-        </div>
-
-        <!-- Project 5 -->
-        <div class="project-item">
-            <p class="title">Eigenvalue Properties of Adjacency Matrix and Laplacian in Network Analysis</p>
-            <p class="details">Winter 2022 - Prof. Dehghan</p>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="project-item">
-            <p class="title">Solving Interval Linear Systems using Jacobi and Gauss-Seidel Methods</p>
-            <p class="details">Winter 2022 - Prof. Dehghan</p>
-        </div>
-
-        <!-- Project 7 -->
-        <div class="project-item">
-            <p class="title">Adversarial Robustness in Neural Networks: FGSM, BIM, and PGD Attacks</p>
-            <p class="details">Spring 2024</p>
-            <a class="link" href="https://github.com/peyman-paknezhad/Adversarial-Robustness-in-Neural-Networks-Implementation-and-Assessment-of-FGSM-BIM-and-PGD-Attacks" target="_blank">GitHub</a>
-        </div>
-
-        <!-- Project 8 -->
-        <div class="project-item">
-            <p class="title">Cluster Impurity Method for Identifying Backdoor Attacks Without the Need to Clean the Data</p>
-            <p class="details">Spring 2024</p>
-            <a class="link" href="https://github.com/peyman-paknezhad/Cluster-impurity-method-for-identifying-backdoor-attacks-without-the-need-to-clean-the-data." target="_blank">GitHub</a>
-        </div>
-
-        <!-- Project 9 -->
-        <div class="project-item">
-            <p class="title">Adversarial Prompt Generation for Text-to-Image Models with Defense Strategies Using Language Models</p>
-            <p class="details">Spring 2024</p>
-            <a class="link" href="https://github.com/peyman-paknezhad/T2I-Adversarial-Prompts-Defense" target="_blank">GitHub</a>
-        </div>
-    </div>
-</div>
-
-    <!-- Notable Courses -->
-    <div class="glass-box">
-        <h3>Notable Courses</h3>
-        <div class="grid-list">
-            <span><strong>Data Structures & Algorithms:</strong> 20.0/20.0</span>
-            <span><strong>Data Mining:</strong> 20.0/20.0</span>
-            <span><strong>Numerical Linear Algebra:</strong> 20.0/20.0</span>
-            <span><strong>Principles of Software Design & Workshop:</strong> 18.9/20.0</span>
-            <span><strong>Image Processing:</strong> 19.1/20.0</span>
-            <span><strong>Database & Workshop:</strong> 20.0/20.0</span>
-            <span><strong>Artificial Intelligence & Workshop:</strong> 20.0/20.0</span>
-            <span><strong>Principles of Operating Systems:</strong> 20.0/20.0</span>
-        </div>
-    </div>
-
-    <!-- Skills -->
-    <div class="glass-box">
-        <h3>Skills</h3>
-        <div class="grid-list">
-            <span><strong>Python:</strong> PyTorch, TensorFlow, Pandas, Scikit-learn, NumPy, Matplotlib, OpenCV, NetworkX, Pyomo</span>
-            <span><strong>Other:</strong> MATLAB, Maple, C, Microsoft SQL Server, Git, LaTeX, RapidMiner</span>
-        </div>
-    </div>
-
-<!-- English Proficiency -->
-<div class="glass-box">
-    <h3>English Proficiency</h3>
-    <div class="english-container">
-        <p class="test">TOEFL</p>
-        <p class="score"><strong>Total Score:</strong> 102</p>
-        <div class="breakdown">
-            <span>Reading: 27</span>
-            <span>Listening: 28</span>
-            <span>Speaking: 25</span>
-            <span>Writing: 22</span>
-        </div>
-    </div>
-</div>
-<button class="home-button" onclick="goHome()">Home</button>
-</div>
-    <button class="home-button" onclick="goHome()">Home</button>
-</div>
-
-    
-        <div class="section" id="personalSection">
+    <div class="section" id="personalSection">
         <h2>Personal</h2>
-            <p>I’m from Neyshabur, a historic city in Iran known for its rich culture, turquoise gemstones, and being the hometown of the legendary Omar Khayyam. I deeply admire Khayyam’s poetry, especially his Rubaiyat, which beautifully captures the essence of life, love, and the passage of time.</p>
-            <p>When I’m not immersed in poetry, you’ll find me passionately following soccer—I’m a huge Liverpool FC fan! The team’s spirit and the anthem You’ll Never Walk Alone always inspire me. Soccer is more than a sport for me; it’s a way to connect with others and share unforgettable moments.</p>
-        <button class="home-button" onclick="goHome()">Home</button>
+        <p>I'm from Neyshabur, a historic city in Iran known for its rich culture, turquoise gemstones, and being the hometown of the legendary Omar Khayyam. I deeply admire Khayyam's poetry, especially his Rubaiyat, which beautifully captures the essence of life, love, and the passage of time.</p>
+        <p>When I'm not immersed in poetry, you'll find me passionately following soccer—I'm a huge Liverpool FC fan! The team's spirit and the anthem "You'll Never Walk Alone" always inspire me. Soccer is more than a sport for me; it's a way to connect with others and share unforgettable moments.</p>
+        <button class="home-button" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
     </div>
-    
-    
-<!-- Contact -->
-<div class="section" id="contactSection">
-    <h2>Contact</h2>
-    <p>Feel free to reach out to me! Whether you have a question, want to collaborate, or just want to say hello, I’d love to hear from you.</p>
-    
-    <div class="contact-links">
-        <!-- LinkedIn -->
-        <a href="http://www.linkedin.com/in/peyman-paknezhad" target="_blank" class="contact-link">
-            <i class="fab fa-linkedin"></i> LinkedIn
-        </a>
-        
-        <!-- GitHub -->
-        <a href="https://github.com/peyman-paknezhad" target="_blank" class="contact-link">
-            <i class="fab fa-github"></i> GitHub
-        </a>
-        
-        <!-- Email -->
-        <a href="mailto:peyman.paknezhad.aut@gmail.com" class="contact-link">
-            <i class="fas fa-envelope"></i> Email
-        </a>
-    </div>
-    
-    <button class="home-button" onclick="goHome()">Home</button>
-</div>
 
-    <!-- Footer -->
+    <div class="section" id="contactSection">
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me! Whether you have a question, want to collaborate, or just want to say hello, I'd love to hear from you.</p>
+        
+        <div class="contact-links">
+            <a href="http://www.linkedin.com/in/peyman-paknezhad" target="_blank" class="contact-link">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            
+            <a href="https://github.com/peyman-paknezhad  
+  " target="_blank" class="contact-link">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            
+            <a href="mailto:peyman.paknezhad.aut@gmail.com" class="contact-link">
+                <i class="fas fa-envelope"></i> Email
+            </a>
+        </div>
+        
+        <button class="home-button" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
+    </div>
+
     <footer>
         <p>&copy; 2025 Peyman Paknezhad | <a href="mailto:peyman.paknezhad.aut@gmail.com">Contact Me</a></p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // 3D Scene for Background
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('scene') });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Particles
-        const particleCount = 1000;
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
-
-        const positions = [];
-        for (let i = 0; i < particleCount; i++) {
-            positions.push((Math.random() - 0.5) * 200); // X
-            positions.push((Math.random() - 0.5) * 200); // Y
-            positions.push((Math.random() - 0.5) * 200); // Z
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particles);
-
-        // Lighting
-        const light = new THREE.PointLight(0xffffff, 1, 100);
-        light.position.set(10, 10, 10);
-        scene.add(light);
-
-        // Camera position
-        camera.position.z = 50;
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            particles.rotation.y += 0.001;
-            particles.rotation.x += 0.0005;
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Adjust to window size
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
-
-        // Remove loading screen after animation
+        // Remove loading screen after 2 seconds
         setTimeout(() => {
-            document.getElementById('loadingScreen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 500);
-        }, 4000);
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.opacity = '0';
+            loadingScreen.style.visibility = 'hidden';
+        }, 2000);
 
         // Section Navigation
         const buttons = document.querySelectorAll('.button');
@@ -944,7 +926,7 @@
                     home.style.display = 'none';
                     document.getElementById(target).classList.add('active');
                     document.body.style.overflow = 'auto';
-                }, 500);
+                }, 600);
             });
         });
 
